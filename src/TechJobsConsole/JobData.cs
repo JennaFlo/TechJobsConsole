@@ -19,6 +19,7 @@ namespace TechJobsConsole
         /*
          * Returns a list of all values contained in a given column,
          * without duplicates. 
+         *  
          */
         public static List<string> FindAll(string column)
         {
@@ -71,7 +72,7 @@ namespace TechJobsConsole
 
             List<string[]> rows = new List<string[]>();
 
-            using (StreamReader reader = File.OpenText("job_data.csv"))
+            using (StreamReader reader = File.OpenText("C:/Users/jlflo/lc101CSharp/JennaFlo/practiceC-/TechJobsConsole/src/TechJobsConsole/job_data.csv"))
             {
                 while (reader.Peek() >= 0)
                 {
@@ -129,6 +130,7 @@ namespace TechJobsConsole
                     {
                         valueBuilder.Append(c);
                     }
+
                 }
             }
 
@@ -138,5 +140,27 @@ namespace TechJobsConsole
 
             return rowValues.ToArray();
         }
+        public static List<Dictionary<string, string>> FindByValue(string value)
+        {
+            LoadData();
+
+        List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>();
+        
+        foreach(Dictionary<string, string> row in AllJobs)
+        {
+                foreach (KeyValuePair<string, string> new_value in row)
+                {
+                    if (new_value.Value.ToLower().Contains(value.ToLower()))
+                    {
+                        jobs.Add(row);
+                        break;
+                    }
+                }
+        }
+            return jobs;
+
+        }
+      
+        }
     }
-}
+
